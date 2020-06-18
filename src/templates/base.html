@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock %}</title>
+
+    <style>
+        body {
+            background-color: #999;
+        }    
+        {% block estilo %}
+        {% endblock %}
+    
+    </style>    
+</head>
+<body>
+    
+    {% block conteudo %}
+    {% endblock %}
+
+
+    <script src="{% static 'js/init.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Minhas Paginas {% endblock %}
+
+{% block estilo %}
+    body {
+        background-color: red;
+    }  
+{% endblock %}
+
+{% block conteudo %}
+
+    <ul>
+    {% for pagina in paginas %}
+    <li><a href="#">{{ pagina }}</a></li>
+    {% endfor %}
+    </ul>    
+
+{% endblock %}
