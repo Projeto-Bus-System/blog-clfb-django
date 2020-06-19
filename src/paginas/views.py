@@ -36,15 +36,29 @@ def remove(request, id):
     context = {}
     context['pagina'] = Paginas.objects.get(pk=id) # consulte documentacao do django e veja como apagar... precisa fazer a rota - urls.py
     
+    
+    
+
+    if request.method =='POST':
+        pagina_del = Paginas.objects.all()
+        pagina_del.filter(id=id).delete()
+
     return render(request, 'remove.html', context=context)
 
 def editar(request, id):
     context = {}
-    pagina = Paginas.objects.get(pk=id)
+    pagina = Paginas.objects.get(id=id)
+    form_bd = CriarPaginaForms(instance=pagina)
+    form_nova = CriarPaginaForms(instance=pagina)
     context['pagina'] = pagina
     # implementar editar... parecido com criar...  
-    form = CriarPaginaForms(instance=pagina)
     # escrever a logica de negocios para salvar o item editado...
-    context['form'] = form
+
+    
+    if form_nova.is_valid():
+        form_bd = form_nova
+        form_bd.save(force_update=True)
+
+    context['form'] = form_nova
 
     return render(request, 'editar.html', context=context)

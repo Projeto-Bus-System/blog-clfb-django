@@ -3,6 +3,15 @@
 
 {% block conteudo %}
 
-{{form}}
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Editar</button>
+
+</form>
+
+
+
 
 {% endblock %}
