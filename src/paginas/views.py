@@ -1,5 +1,4 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404
 from paginas.forms import CriarPaginaForms
 from paginas.models import Paginas
 
@@ -45,26 +44,16 @@ def remove(request, id):
 def editar(request, id):
     context = {}
     pagina = Paginas.objects.get(pk=id)
-    context['pagina'] = pagina
+    form_bd_mdal =get_object_or_404(Paginas, pk=id)
+    context ['pagina'] = form_bd_mdal
 
-    form_bd = CriarPaginaForms(request.POST or None,instance=pagina)
-    # implementar editar... parecido com criar...  
-    # escrever a logica de negocios para salvar o item editado...
-
-    #print(form_bd)
+    form_bd = CriarPaginaForms(request.POST or None,instance = form_bd_mdal)
     if form_bd.is_valid():
         
-        titulo = form_bd.cleaned_data['titulo']
-        dono = form_bd.cleaned_data['dono'] 
-        conteudo = form_bd.cleaned_data['conteudo']
-        
-        
-        tarefa_nova = Paginas(titulo=titulo,dono=dono, conteudo=conteudo)
-        form_bd = tarefa_nova
-        form_bd.save(force_update=True)
-        print('Sou o form bd',form_bd)
+        form_bd.save()
     else:
-        print('falso')
+        print('Houve algum erro, tente novamente')
+
 
     context['form'] = form_bd
 
